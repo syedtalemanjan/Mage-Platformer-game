@@ -2,24 +2,34 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
-canvas.hieght = window.innerHeight;
+canvas.height = window.innerHeight;
 
 class Player {
     constructor(){
-        this.position = {x:0,y:0};
+        this.position = {x:100,y:100};
+        this.velocity = {x: 0, y: 1}
         this.width = 100;
-        this.hieght = 100;
+        this.height = 100;
     }
 
     draw() {
-        ctx.fillRect(this.position.x,this.position.y,this.width,this.hieght)
+        ctx.fillRect(this.position.x,this.position.y,this.width,this.height)
+    }
+
+    update(){
+        this.position.y += this.velocity.y;
+        this.draw()
     }
 }
 
 const player = new Player();
-player.draw();
 
 console.log("blah")
 
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+    player.update();
+}
 
-// 19 1035
+animate()
